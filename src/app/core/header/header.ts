@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']
 })
 export class Header {
-  appName ='Косметика';
+  appName: string = environment.appName;  // тепер із environment
 }

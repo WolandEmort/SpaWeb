@@ -1,16 +1,30 @@
 .navbar {
-  background-color: #3f51b5;
+  background: linear-gradient(135deg, #3f51b5, #5c6bc0); /* плавний градієнт */
   color: white;
-  padding: 15px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* для вирівнювання елементів */
 }
 
 .navbar-brand {
   color: white;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* відступ між логотипом/іконкою і текстом */
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #ffeb3b; /* золотистий при наведенні */
+  transform: scale(1.05); /* легке збільшення */
 }
 
 .navbar-brand h1 {
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.6em;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
