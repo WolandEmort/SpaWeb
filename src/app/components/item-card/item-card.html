@@ -1,0 +1,33 @@
+<div class="product-card">
+
+  <div class="card-image-wrapper">
+    <img class="product-image" [src]="item.imageUrl" [alt]="item.name">
+  </div>
+
+  <div class="card-content">
+
+    <h3 class="product-name">{{ item.name }}</h3>
+    <p class="product-brand">{{ item.brand }}</p>
+
+    <p class="product-description">{{ item.description }}</p>
+
+    <div class="product-details">
+      <span class="detail-volume">{{ item.volume }}</span>
+      <span class="detail-category">{{ item.category }}</span>
+    </div>
+
+  </div>
+
+  <div class="card-actions">
+
+    <div class="product-price">
+      {{ item.price | currency:currencyConfig.code:currencyConfig.display:currencyConfig.digitsInfo }}
+    </div>
+
+    <button class="buy-button"
+            [disabled]="isButtonDisabled()"
+            [class.out-of-stock]="isButtonDisabled()">
+      {{ getButtonText() }}
+    </button>
+  </div>
+</div>

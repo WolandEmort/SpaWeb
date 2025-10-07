@@ -5,11 +5,23 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [],
+
+    // --- ПОЧАТОК ВИПРАВЛЕНЬ ---
+    // 1. Всі шляхи конфігуруються відносно кореня 'src'
     "baseUrl": "./src",
+
+    // 2. Всі псевдоніми шляхів знаходяться тут
     "paths": {
-      "environments/*": ["environments/*"]
+
+      "environments/*": ["environments/*"],
+
+      "@core/*": ["app/core/*"],
+
+      "@models/*": ["app/core/models/*"]
     }
+    // --- КІНЕЦЬ ВИПРАВЛЕНЬ ---
   },
+
   "include": [
     "src/**/*.ts"
   ],

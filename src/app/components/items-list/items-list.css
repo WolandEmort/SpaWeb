@@ -1,0 +1,13 @@
+.product-list-container {
+  display: flex;
+  flex-wrap: wrap; /* Дозволяє карткам переноситися на наступний рядок */
+  gap: 20px; /* Відстань між картками */
+  justify-content: center; /* Центрування карток */
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}

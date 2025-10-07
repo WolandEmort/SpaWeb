@@ -3,3 +3,4 @@ export const environment = {
   appName: 'Косметика',
   currentYear: new Date().getFullYear()
 };
+

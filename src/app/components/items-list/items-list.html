@@ -1,0 +1,13 @@
+<div class="product-list-container">
+
+  @for (product of products; track product.id) {
+    <div class="product-item">
+      <app-item-card [item]="product"></app-item-card>
+    </div>
+  }
+
+  @empty {
+    <p></p>
+  }
+
+</div>
