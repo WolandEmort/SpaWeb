@@ -1,26 +1,31 @@
 <div class="product-card">
 
   <div class="card-image-wrapper">
+
+    @if (item.isBestseller) {   <!-- 4 завдання 3 лаби -->
+      <div class="bestseller-badge">{{ sales }}</div>
+    }
+
     <img class="product-image" [src]="item.imageUrl" [alt]="item.name">
   </div>
 
   <div class="card-content">
-
     <h3 class="product-name">{{ item.name }}</h3>
     <p class="product-brand">{{ item.brand }}</p>
-
     <p class="product-description">{{ item.description }}</p>
-
     <div class="product-details">
       <span class="detail-volume">{{ item.volume }}</span>
       <span class="detail-category">{{ item.category }}</span>
     </div>
-
   </div>
 
   <div class="card-actions">
 
-    <div class="product-price">
+    <div class="product-price"
+         [ngClass]="{
+         'price-high': item.price > max,
+         'price-low': item.price < min,
+       }">
       {{ item.price | currency:currencyConfig.code:currencyConfig.display:currencyConfig.digitsInfo }}
     </div>
 

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../../core/models/product.interface';
+import { IProduct } from '@core/models/product.interface';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-item-card',
@@ -11,6 +12,9 @@ import { IProduct } from '../../core/models/product.interface';
 })
 export class ItemCardComponent {
   @Input({ required: true }) item!: IProduct;
+  sales = environment.sales;
+  min = environment.min;
+  max = environment.max;
 
   // Конфігурація текстів
   protected readonly labels = {

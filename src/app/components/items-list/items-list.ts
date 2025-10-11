@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../../core/models/product.interface';
+import { IProduct } from '@core/models/product.interface';
 import { ItemCardComponent } from '../item-card/item-card';
 
 @Component({
@@ -39,7 +39,8 @@ export class ItemsListComponent {
       imageUrl: 'https://placehold.co/150x180/FF69B4/FFFFFF?text=CREAM',
       category: 'Макіяж',
       volume: '30 мл',
-      inStock: true
+      inStock: true,
+      isBestseller: true //Тест
     },
     {
       id: 103,
@@ -61,7 +62,8 @@ export class ItemsListComponent {
       imageUrl: 'https://placehold.co/150x180/8B4513/FFFFFF?text=SCRUB',
       category: 'Догляд для тіла',
       volume: '250 г',
-      inStock: true
+      inStock: true,
+      isBestseller: true //Тест
     }
   ];
 

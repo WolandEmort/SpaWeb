@@ -1,3 +1,5 @@
+/* item-card.css */
+
 .product-card {
   /* Візуальне оформлення */
   border: 1px solid #e0e0e0;
@@ -22,11 +24,37 @@
 
 /* --- Блок Зображення --- */
 .card-image-wrapper {
+  position: relative; /* ДОДАНО: Для позиціонування позначки */
   overflow: hidden;
   border-radius: 8px;
   height: 180px; /* Фіксована висота контейнера зображення */
   margin-bottom: 10px;
 }
+
+/*
+ * ДОДАНО: Стилі для позначки "Хіт продажів".
+*/
+.bestseller-badge {
+  /* Розміщуємо позначку поверх зображення у верхньому лівому кутку */
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  /* Візуальне оформлення */
+  background-color: #ff4500; /* Яскравий помаранчево-червоний колір */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  /* Текст */
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  /* Переконуємось, що позначка буде поверх інших елементів */
+  z-index: 10;
+}
+
 
 .product-image {
   width: 100%;
@@ -96,9 +124,21 @@
 .product-price {
   font-size: 1.6em;
   font-weight: bold;
-  color: #007bff; /* Фірмовий колір */
+  color: #007bff; /* Фірмовий колір (за замовчуванням) */
   margin-bottom: 10px;
+  transition: color 0.3s ease; /* Додамо плавну зміну кольору */
 }
+
+/* * ДОДАНО: Нові класи для динамічної зміни кольору ціни
+*/
+.product-price.price-high {
+  color: #dc3545; /* Червоний колір для високої ціни */
+}
+
+.product-price.price-low {
+  color: #28a745; /* Зелений колір для низької ціни (як кнопка "Купити") */
+}
+
 
 .buy-button {
   width: 100%;

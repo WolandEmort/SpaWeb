@@ -25,4 +25,7 @@ export interface IProduct {
 
   //Наявність на складі
   inStock: boolean;
+
+  //Хіт продажу(3 лаба)
+  isBestseller?: boolean;
 }
