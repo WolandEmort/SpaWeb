@@ -65,5 +65,13 @@ export class ItemsListComponent {
     }
   ];
 
-  constructor() { }
+
+  /**
+   * @param index Індекс елемента в масиві
+   * @param product Сам елемент масиву (продукт)
+   * @returns Унікальний ідентифікатор продукту
+   */
+  trackByProductId(index: number, product: IProduct): number {
+    return product.id;
+  }
 }
