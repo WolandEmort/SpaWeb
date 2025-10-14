@@ -28,4 +28,6 @@ export interface IProduct {
 
   //Хіт продажу(3 лаба)
   isBestseller?: boolean;
+
+  details? : string;
 }

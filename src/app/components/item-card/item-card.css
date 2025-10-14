@@ -138,7 +138,35 @@
 .product-price.price-low {
   color: #28a745; /* Зелений колір для низької ціни (як кнопка "Купити") */
 }
+.card-actions {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+/* ... (стилі для .product-price) ... */
+
+/* ДОДАНО: Стилі для кнопки "Детальніше" */
+.details-button {
+  width: 100%;
+  padding: 12px 0;
+  margin-bottom: 8px; /* Відступ від кнопки "Купити" */
+  background-color: #007bff; /* Синя кнопка, як ціна */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.details-button:hover {
+  background-color: #0056b3;
+}
 
 .buy-button {
   width: 100%;
@@ -163,3 +191,40 @@
   cursor: not-allowed;
   opacity: 0.8;
 }
+
+.details-container {
+  position: relative;
+  width: 100%; /* Щоб контейнер займав ту ж ширину, що й кнопка */
+  display: flex;
+  justify-content: center;
+}
+
+/* 2. Сама спливашка: спочатку ховаємо її */
+.details-tooltip {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 3. Маленький трикутник-стрілочка для краси */
+.details-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+

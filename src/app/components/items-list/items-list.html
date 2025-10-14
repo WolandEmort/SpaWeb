@@ -1,13 +1,24 @@
+<div class="search-container">
+  <input
+    type="text"
+    [placeholder]="searchText.textSearchInput"
+    class="search-input"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearch()"
+  >
+</div>
+
 <div class="product-list-container">
 
-  @for (product of products; track product.id) {
+  @for (product of filteredProducts; track product.id) {
     <div class="product-item">
-      <app-item-card [item]="product"></app-item-card>
+      <app-item-card
+        [item]="product"
+        (details)="onProductSelected($event)">
+      </app-item-card>
     </div>
-  }
-
-  @empty {
-    <p></p>
+  } @empty {
+    <p class="not-found-message">{{ searchText.searchTextFalse }}</p>
   }
 
 </div>

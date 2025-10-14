@@ -2,7 +2,7 @@
 
   <div class="card-image-wrapper">
 
-    @if (item.isBestseller) {   <!-- 4 завдання 3 лаби -->
+    @if (item.isBestseller) {
       <div class="bestseller-badge">{{ sales }}</div>
     }
 
@@ -20,13 +20,22 @@
   </div>
 
   <div class="card-actions">
-
     <div class="product-price"
          [ngClass]="{
-         'price-high': item.price > max,
-         'price-low': item.price < min,
-       }">
+           'price-high': item.price > max,
+           'price-low': item.price < min
+         }">
       {{ item.price | currency:currencyConfig.code:currencyConfig.display:currencyConfig.digitsInfo }}
+    </div>
+
+    <div class="details-container">
+      <button class="details-button" (click)="toggleTooltip($event)">
+        {{ labels.detailsButton }}
+      </button>
+
+      @if (isTooltipVisible && item.details) {
+        <span class="details-tooltip">{{ item.details }}</span>
+      }
     </div>
 
     <button class="buy-button"
@@ -35,4 +44,10 @@
       {{ getButtonText() }}
     </button>
   </div>
+
 </div>
+
+
+
+
+

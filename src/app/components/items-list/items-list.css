@@ -11,3 +11,31 @@ h2 {
   color: #333;
   margin-bottom: 20px;
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.search-input {
+  width: 50%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.not-found-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: #777;
+  margin-top: 30px;
+}
