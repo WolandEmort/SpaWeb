@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs'; // Імпортуємо Observable та 'of'
+import { Observable, BehaviorSubject } from 'rxjs'; // Імпортуємо Observable та 'of'
 import { IProduct } from '@core/models/product.interface';
 
 @Injectable({providedIn: 'root'})
@@ -17,7 +17,7 @@ export class DataService {
       category: 'Очищення',
       volume: '150 мл',
       inStock: true,
-      details : 'Ніжна пінка з гіалуроновою кислотою та екстрактом зеленого чаю. Ідеально підходить для всіх типів шкіри, глибоко очищує та зволожує, не викликаючи відчуття стягнутості.'
+      details: 'Ніжна пінка з гіалуроновою кислотою та екстрактом зеленого чаю. Ідеально підходить для всіх типів шкіри, глибоко очищує та зволожує, не викликаючи відчуття стягнутості.'
     },
     {
       id: 102,
@@ -30,7 +30,7 @@ export class DataService {
       volume: '30 мл',
       inStock: true,
       isBestseller: true,
-      details : 'Стійкий тональний засіб із природним матовим фінішем та захистом SPF 15. Забезпечує середнє покриття, вирівнює тон шкіри та приховує недоліки протягом усього дня.'
+      details: 'Стійкий тональний засіб із природним матовим фінішем та захистом SPF 15. Забезпечує середнє покриття, вирівнює тон шкіри та приховує недоліки протягом усього дня.'
     },
     {
       id: 103,
@@ -59,9 +59,25 @@ export class DataService {
     }
   ];
 
-  constructor() { }
+  //Завдання 4 лаб 6
+  private productsSubject = new BehaviorSubject<IProduct[]>(this.allProducts);
 
+  constructor() {
+  }
+
+  //Завдання 2 лаб 6(без використання of)
   getItems(): Observable<IProduct[]> {
-    return of(this.allProducts);
+    return this.productsSubject.asObservable();
+  }
+
+  public search(searchTerm: string): void {
+    const filterText = searchTerm.toLowerCase();
+
+    const filteredProducts = this.allProducts.filter(product =>
+      product.name.toLowerCase().includes(filterText)
+    );
+
+    this.productsSubject.next(filteredProducts);
+
   }
 }

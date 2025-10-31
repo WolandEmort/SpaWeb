@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IProduct } from '@core/models/product.interface';
 import { ItemCardComponent } from '../item-card/item-card';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '@core/services/data.service'; // 1. Імпортуємо наш сервіс
+import { DataService } from '@core/services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-items-list',
@@ -16,36 +17,41 @@ import { DataService } from '@core/services/data.service'; // 1. Імпорту�
   templateUrl: './items-list.html',
   styleUrls: ['./items-list.css']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent implements OnInit, OnDestroy {
 
   public searchTerm: string = '';
-  private allProducts: IProduct[] = [];
-  public filteredProducts: IProduct[] = [];
+
+  public filteredProducts: IProduct[] = []; // Цей масив тепер заповнюється з сервісу
+
+  private productsSubscription: Subscription | undefined;
 
   protected readonly searchText = {
-    textSearchInput : 'Пошук за назвою товару...',
-    searchTextFalse : 'На жаль, за вашим запитом нічого не знайдено.'
+    textSearchInput: 'Пошук за назвою товару...',
+    searchTextFalse: 'На жаль, за вашим запитом нічого не знайдено.'
   };
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) { }
 
+//Завдання 3 лаб 6
   ngOnInit(): void {
-    // Викликаємо метод getItems() з сервісу.
-    this.dataService.getItems().subscribe(data => {
-      // Коли дані прийдуть, ми записуємо їх у наші масиви
-      this.allProducts = data;
-      this.filteredProducts = data;
+    this.productsSubscription = this.dataService.getItems().subscribe(products => {
+      this.filteredProducts = products;
     });
   }
 
+//Завдання 5 лаб 6(запит на пошук)
   onSearch(): void {
-    const filterText = this.searchTerm.toLowerCase();
-    this.filteredProducts = this.allProducts.filter(product =>
-      product.name.toLowerCase().includes(filterText)
-    );
+    this.dataService.search(this.searchTerm);
   }
 
   onProductSelected(product: IProduct): void {
     console.log('Обраний товар:', product);
+  }
+
+ //Видалення
+  ngOnDestroy(): void {
+    if (this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
+    }
   }
 }
