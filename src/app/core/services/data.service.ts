@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of, map } from 'rxjs'; // Імпортуємо Observable та 'of'
+import { Observable, BehaviorSubject, of} from 'rxjs'; // Імпортуємо Observable та 'of'
 import { IProduct } from '@core/models/product.interface';
 
 @Injectable({providedIn: 'root'})
