@@ -5,6 +5,7 @@ import { ItemCardComponent } from '../item-card/item-card';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '@core/services/data.service';
 import { Subscription } from 'rxjs';
+import {environment} from "environments/environment";
 
 @Component({
   selector: 'app-items-list',
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs';
 export class ItemsListComponent implements OnInit, OnDestroy {
 
   public searchTerm: string = '';
-
+  public readonly mainMenuText: string = environment.mainMenuText;
   public filteredProducts: IProduct[] = []; // Цей масив тепер заповнюється з сервісу
 
   private productsSubscription: Subscription | undefined;

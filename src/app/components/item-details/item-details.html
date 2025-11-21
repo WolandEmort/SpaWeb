@@ -1,0 +1,47 @@
+<div class="back-link-container">
+    <a routerLink="/items" class="back-button">
+        &larr; {{ backClickCatalog }}
+    </a>
+</div>
+
+@if (item) {
+    <div class="details-container">
+
+        <div class="image-section">
+            <img [src]="item.imageUrl" [alt]="item.name" class="details-image">
+        </div>
+
+        <div class="info-section">
+            <h1 class="item-title">{{ item.name }}</h1>
+            <p class="item-brand">{{ brandText }}: {{ item.brand }}</p>
+
+            <div class="price-tag">
+                {{ item.price | currency:currency:'symbol':'1.2-2' }}
+            </div>
+
+            <p class="item-description">{{ item.description }}</p>
+
+            <div class="specs">
+                <p><strong>{{ categoryText }}:</strong> {{ item.category }}</p>
+                <p><strong>{{ volumeText }}:</strong> {{ item.volume }}</p>
+
+                @if (item.details) {
+                    <div class="full-details">
+                        <h3>{{ detailsText }}:</h3>
+                        <p>{{ item.details }}</p>
+                    </div>
+                }
+            </div>
+
+            <button class="buy-btn" [disabled]="!item.inStock">
+                {{ item.inStock ? buyText : noneBuyText }}
+            </button>
+        </div>
+
+    </div>
+} @else {
+    <div class="not-found">
+        <h2>{{ notFoundBuy }} </h2>
+        <a routerLink="/items">{{ backClick }}</a>
+    </div>
+}

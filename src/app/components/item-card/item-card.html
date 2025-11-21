@@ -1,53 +1,48 @@
 <div class="product-card">
 
-  <div class="card-image-wrapper">
+    <div class="card-image-wrapper">
 
-    @if (item.isBestseller) {
-      <div class="bestseller-badge">{{ sales }}</div>
-    }
+        @if (item.isBestseller) {
+            <div class="bestseller-badge">Хіт продажів</div>
+        }
 
-    <img class="product-image" [src]="item.imageUrl" [alt]="item.name">
-  </div>
-
-  <div class="card-content">
-    <h3 class="product-name">{{ item.name }}</h3>
-    <p class="product-brand">{{ item.brand }}</p>
-    <p class="product-description">{{ item.description }}</p>
-    <div class="product-details">
-      <span class="detail-volume">{{ item.volume }}</span>
-      <span class="detail-category">{{ item.category }}</span>
+        <img class="product-image" [src]="item.imageUrl" [alt]="item.name">
     </div>
-  </div>
 
-  <div class="card-actions">
-    <div class="product-price"
-         [ngClass]="{
+
+    <div class="card-content">
+        <h3 class="product-name">{{ item.name }}</h3>
+        <p class="product-brand">{{ item.brand }}</p>
+
+        <p class="product-description">{{ item.description }}</p>
+
+        <div class="product-details">
+            <span class="detail-volume">{{ item.volume }}</span>
+            <span class="detail-category">{{ item.category }}</span>
+        </div>
+    </div>
+
+
+    <div class="card-actions">
+        <div class="product-price"
+             [ngClass]="{
            'price-high': item.price > max,
            'price-low': item.price < min
          }">
-      {{ item.price | currency:currencyConfig.code:currencyConfig.display:currencyConfig.digitsInfo }}
+            {{ item.price | currency:currencyConfig.code:currencyConfig.display:currencyConfig.digitsInfo }}
+        </div>
+
+        <div class="details-container">
+            <a [routerLink]="['/items', item.id]" class="details-button">
+                {{ labels.detailsButton }}
+            </a>
+        </div>
+
+        <button class="buy-button"
+                [disabled]="isButtonDisabled()"
+                [class.out-of-stock]="isButtonDisabled()">
+            {{ getButtonText() }}
+        </button>
     </div>
-
-    <div class="details-container">
-      <button class="details-button" (click)="toggleTooltip($event)">
-        {{ labels.detailsButton }}
-      </button>
-
-      @if (isTooltipVisible && item.details) {
-        <span class="details-tooltip">{{ item.details }}</span>
-      }
-    </div>
-
-    <button class="buy-button"
-            [disabled]="isButtonDisabled()"
-            [class.out-of-stock]="isButtonDisabled()">
-      {{ getButtonText() }}
-    </button>
-  </div>
 
 </div>
-
-
-
-
-

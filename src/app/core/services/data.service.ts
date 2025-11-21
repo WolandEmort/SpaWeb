@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs'; // Імпортуємо Observable та 'of'
+import { Observable, BehaviorSubject, of, map } from 'rxjs'; // Імпортуємо Observable та 'of'
 import { IProduct } from '@core/models/product.interface';
 
 @Injectable({providedIn: 'root'})
@@ -79,5 +79,9 @@ export class DataService {
 
     this.productsSubject.next(filteredProducts);
 
+  }
+  getItemById(id: number): Observable<IProduct | undefined> {
+    const product = this.allProducts.find(p => p.id === id);
+    return of(product);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-//import { RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { ItemsListComponent } from './components/items-list/items-list';
 import { Header } from '@core/header/header';
 import { Footer } from '@core/footer/footer';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [
-    //RouterOutlet,
+    RouterOutlet,
     ItemsListComponent,
     Header,
     Footer,
