@@ -21,5 +21,12 @@ export const environment = {
   volumeText : 'Об\'єм',
   detailsText : 'Детальний опис',
 
+
+  //Footer блок
+  gasloText : 'Твій магазин натуральної косметики та догляду',
+  deliveryText : 'Доставка',
+  contactsText : 'Контакти',
+  aboutUsText : 'Про нас',
+  securityPravaText : 'Всі права захищені.'
 };
 

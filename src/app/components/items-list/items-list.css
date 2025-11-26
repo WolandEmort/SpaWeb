@@ -1,41 +1,78 @@
-.product-list-container {
-  display: flex;
-  flex-wrap: wrap; /* Дозволяє карткам переноситися на наступний рядок */
-  gap: 20px; /* Відстань між картками */
-  justify-content: center; /* Центрування карток */
-  padding: 20px;
+.catalog-title {
+  /* Типографіка */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 2.5rem;      /* Великий розмір */
+  font-weight: 800;       /* Жирний шрифт */
+  color: #2d3436;         /* Темно-сірий колір (пасує до хедера) */
+
+  /* Вирівнювання та відступи */
+  text-align: center;     /* Центруємо заголовок */
+  margin-top: 40px;       /* Відступ від хедера */
+  margin-bottom: 10px;    /* Відступ до пошуку */
+
+  /* Стилізація */
+  letter-spacing: -1px;   /* Трохи стиснуті літери (сучасний тренд) */
+  text-transform: uppercase; /* (Опціонально) Всі літери великі */
+  position: relative;
 }
 
-h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+/* (Опціонально) Декоративна лінія під текстом */
+.catalog-title::after {
+  content: "";
+  display: block;
+  width: 60px;            /* Ширина лінії */
+  height: 4px;            /* Товщина */
+  background-color: #0984e3; /* Акцентний синій колір */
+  margin: 15px auto 0;    /* Відступ зверху і центрування */
+  border-radius: 2px;
+}
+
+.product-list-container {
+  /* 1. Робимо контейнер гнучким */
+  display: flex;
+
+  /* 2. НАЙГОЛОВНІШЕ: Дозволяємо елементам переноситися на наступний рядок,
+     якщо вони не поміщаються в один */
+  flex-wrap: wrap;
+
+  /* 3. Додаємо відступи між картками (горизонтальні та вертикальні) */
+  gap: 20px;
+
+  /* 4. Центруємо контент (опціонально, щоб виглядало гарно) */
+  justify-content: center;
+
+  /* Відступи навколо всього списку */
+  padding: 20px;
+   /* Обмежуємо ширину на великих екранах */
+  margin: 0 auto;    /* Центруємо сам контейнер на сторінці */
 }
 
 .search-container {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  margin: 40px 0; /* Більше відступів зверху і знизу */
 }
 
 .search-input {
-  width: 50%;
-  padding: 12px 15px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+  max-width: 600px; /* Обмежуємо ширину, щоб не розтягувався на весь екран */
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  border: 2px solid #eee; /* Дуже світла рамка */
+  border-radius: 50px; /* Повністю круглі краї */
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 }
 
 .search-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #0984e3; /* Колір рамки при фокусі */
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(9, 132, 227, 0.15);
 }
 
-.not-found-message {
-  text-align: center;
-  font-size: 1.2em;
-  color: #777;
-  margin-top: 30px;
+.search-input::placeholder {
+  color: #aaa;
 }

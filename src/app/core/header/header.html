@@ -1,5 +1,26 @@
 <nav class="navbar">
-  <span class="navbar-brand">
-    <h1>{{ appName }}</h1>
-  </span>
+
+    <a routerLink="/items" class="navbar-brand">
+        <h1>{{ appName }}</h1>
+    </a>
+
+    <div class="nav-links">
+        <a routerLink="/items"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">
+            Каталог
+        </a>
+        <a routerLink="/about" routerLinkActive="active">Про нас</a>
+    </div>
+
+    <div class="header-actions">
+        <button class="action-btn cart-btn">
+            🛒 <span class="btn-text">Кошик</span>
+            @if (cartCount > 0) {
+                <span class="badge">{{ cartCount }}</span>
+            }
+        </button>
+        <button class="action-btn login-btn">Увійти</button>
+    </div>
+
 </nav>

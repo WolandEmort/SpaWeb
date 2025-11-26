@@ -1,3 +1,20 @@
-<footer class="footer">
-  <p>© {{ currentYear }}</p>
+<footer class="site-footer">
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h3>{{ env.appName }} </h3>
+            <p>Твій магазин натуральної косметики та догляду.</p>
+        </div>
+
+        <div class="footer-links">
+            <a> {{ env.aboutUsText }} </a>
+            <a> {{ env.deliveryText }} </a>
+            <a> {{ env.contactsText }} </a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© {{ env.currentYear }} {{ env.appName }} {{ env.securityPravaText }}</p>
+    </div>
 </footer>

@@ -14,6 +14,7 @@ import { environment } from 'environments/environment';
   templateUrl: './item-card.html',
   styleUrls: ['./item-card.css']
 })
+
 export class ItemCardComponent {
   @Input({ required: true }) item!: IProduct;
 

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { environment } from 'environments/environment';
+//import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class Footer {
-  currentYear: number = environment.currentYear;
-}
+export class Footer { protected readonly env =  environment; }
