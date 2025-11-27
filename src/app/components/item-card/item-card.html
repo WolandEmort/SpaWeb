@@ -1,9 +1,9 @@
-<div class="product-card">
+<div class="product-card" appHighlight>
 
     <div class="card-image-wrapper">
 
         @if (item.isBestseller) {
-            <div class="bestseller-badge">Хіт продажів</div>
+            <div class="bestseller-badge">{{sales}}</div>
         }
 
         <img class="product-image" [src]="item.imageUrl" [alt]="item.name">
@@ -14,7 +14,7 @@
         <h3 class="product-name">{{ item.name }}</h3>
         <p class="product-brand">{{ item.brand }}</p>
 
-        <p class="product-description">{{ item.description }}</p>
+        <p class="product-description">{{ item.description | truncate:60 }}</p>
 
         <div class="product-details">
             <span class="detail-volume">{{ item.volume }}</span>

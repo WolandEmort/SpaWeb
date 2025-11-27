@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core'; // OnDestroy та Subscription більше не потрібні
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { IProduct } from '@core/models/product.interface';
 import { ItemCardComponent } from '../item-card/item-card';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '@core/services/data.service';
-import { Subscription } from 'rxjs';
-import {environment} from "environments/environment";
+import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-items-list',
@@ -13,18 +13,18 @@ import {environment} from "environments/environment";
   imports: [
     CommonModule,
     ItemCardComponent,
-    FormsModule
+    FormsModule,
+    AsyncPipe
   ],
   templateUrl: './items-list.html',
   styleUrls: ['./items-list.css']
 })
-export class ItemsListComponent implements OnInit, OnDestroy {
+export class ItemsListComponent implements OnInit {
 
   public searchTerm: string = '';
   public readonly mainMenuText: string = environment.mainMenuText;
-  public filteredProducts: IProduct[] = []; // Цей масив тепер заповнюється з сервісу
 
-  private productsSubscription: Subscription | undefined;
+  public products$: Observable<IProduct[]> | undefined;
 
   protected readonly searchText = {
     textSearchInput: 'Пошук за назвою товару...',
@@ -33,15 +33,15 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService) { }
 
-//Завдання 3 лаб 6
+  // Завдання 3: Робота з AsyncPipe
   ngOnInit(): void {
-    this.productsSubscription = this.dataService.getItems().subscribe(products => {
-      this.filteredProducts = products;
-    });
+
+    this.products$ = this.dataService.getItems();
   }
 
-//Завдання 5 лаб 6(запит на пошук)
+  // Завдання 5: Пошук
   onSearch(): void {
+    // Сервіс оновлює BehaviorSubject, і products$ автоматично отримає нові дані
     this.dataService.search(this.searchTerm);
   }
 
@@ -49,10 +49,5 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     console.log('Обраний товар:', product);
   }
 
- //Видалення
-  ngOnDestroy(): void {
-    if (this.productsSubscription) {
-      this.productsSubscription.unsubscribe();
-    }
-  }
+  // 3. ЗМІНА: ngOnDestroy видалено, оскільки AsyncPipe сам відписується.
 }

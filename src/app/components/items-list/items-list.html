@@ -1,28 +1,17 @@
-<div class="catalog-header">
-    <h1 class="catalog-title">{{ mainMenuText }}</h1>
-</div>
-<div class="products-grid">
-</div>
-
-
-<div class="search-container">
-    <input
-            type="text"
-            [placeholder]="searchText.textSearchInput"
-            class="search-input"
-            [(ngModel)]="searchTerm"
-            (ngModelChange)="onSearch()"
-    >
-</div>
-
 <div class="product-list-container">
 
-    @for (product of filteredProducts; track product.id) {
-        <div class="product-item">
-            <app-item-card [item]="product"></app-item-card>
-        </div>
-    } @empty {
-        <p class="not-found-message">{{ searchText.searchTextFalse }}</p>
+    @if (products$ | async; as products) {
+
+        @for (product of products; track product.id) {
+            <div class="product-item">
+                <app-item-card [item]="product"></app-item-card>
+            </div>
+        }
+
+        @empty {
+            <p class="not-found-message">{{ searchText.searchTextFalse }}</p>
+        }
+
     }
 
 </div>

@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { IProduct } from '@core/models/product.interface';
 import { environment } from 'environments/environment';
+import { TruncatePipe } from '@core/pipes/truncate.pipe';
+import { HighlightDirective } from '@core/directives/highlight.directive';
 
 @Component({
   selector: 'app-item-card',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    TruncatePipe,
+    HighlightDirective
   ],
   templateUrl: './item-card.html',
   styleUrls: ['./item-card.css']
