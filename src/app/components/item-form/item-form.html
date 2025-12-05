@@ -1,0 +1,74 @@
+<div class="form-container">
+    <h2 class="form-title">{{ formUI.title }}</h2>
+
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="styled-form">
+
+        <div class="form-group">
+            <label>{{ formUI.labels.name }}</label>
+            <input
+                    type="text"
+                    formControlName="name"
+                    [placeholder]="formUI.placeholders.name"
+            >
+
+            @if (itemForm.get('name')?.invalid && itemForm.get('name')?.touched) {
+                <small class="error-message">{{ formUI.errors.name }}</small>
+            }
+        </div>
+
+        <div class="form-group">
+            <label>{{ formUI.labels.brand }}</label>
+            <input
+                    type="text"
+                    formControlName="brand"
+                    [placeholder]="formUI.placeholders.brand"
+            >
+
+            @if (itemForm.get('brand')?.invalid && itemForm.get('brand')?.touched) {
+                <small class="error-message">{{ formUI.errors.brand }}</small>
+            }
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>{{ formUI.labels.price }}</label>
+                <input type="number" formControlName="price">
+
+                @if (itemForm.get('price')?.invalid && itemForm.get('price')?.touched) {
+                    <small class="error-message">{{ formUI.errors.price }}</small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>{{ formUI.labels.volume }}</label>
+                <input
+                        type="text"
+                        formControlName="volume"
+                        [placeholder]="formUI.placeholders.volume"
+                >
+
+                @if (itemForm.get('volume')?.invalid && itemForm.get('volume')?.touched) {
+                    <small class="error-message">{{ formUI.errors.volume }}</small>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{ formUI.labels.description }}</label>
+            <textarea
+                    formControlName="description"
+                    rows="4"
+                    [placeholder]="formUI.placeholders.description"
+            ></textarea>
+
+            @if (itemForm.get('description')?.invalid && itemForm.get('description')?.touched) {
+                <small class="error-message">{{ formUI.errors.description }}</small>
+            }
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="itemForm.invalid">
+            {{ formUI.submitBtn }}
+        </button>
+
+    </form>
+</div>
