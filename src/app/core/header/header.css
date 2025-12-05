@@ -70,3 +70,18 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
 }
+
+.nav-links a.admin-link {
+  color: #6c5ce7; /* Ваш акцентний фіолетовий */
+  border: 1px solid rgba(108, 92, 231, 0.3);
+  padding: 6px 15px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.nav-links a.admin-link:hover,
+.nav-links a.admin-link.active {
+  background-color: #6c5ce7;
+  color: white;
+  box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
+}

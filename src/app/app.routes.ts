@@ -3,6 +3,7 @@ import { App } from './app';
 import { ItemsListComponent } from './components/items-list/items-list';
 import { ItemDetailsComponent } from './components/item-details/item-details';
 import { environment } from 'environments/environment';
+import { ItemFormComponent } from './components/item-form/item-form';
 
 export const routes: Routes = [
   // 1. Головна сторінка (Каталог)
@@ -10,7 +11,11 @@ export const routes: Routes = [
 
   // 2. Сторінка товару
   { path: 'items/:id', component: ItemDetailsComponent },
-
+  {
+    path: 'admin/add-item', // Адреса сторінки
+    component: ItemFormComponent,
+    title: 'Додати новий товар'
+  },
 
   { path: '**', redirectTo: '' },
 

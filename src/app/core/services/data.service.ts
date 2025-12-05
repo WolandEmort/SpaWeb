@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of} from 'rxjs'; // Імпортуємо Observable та 'of'
+import { Observable, BehaviorSubject, of} from 'rxjs';
 import { IProduct } from '@core/models/product.interface';
 
 @Injectable({providedIn: 'root'})
 export class DataService {
+
+  public addItem(item: IProduct): void {
+    // 1. Додаємо новий товар у локальний масив
+    this.allProducts.push(item);
+
+    // 2. Оновлюємо потік даних, щоб усі підписники (каталог) побачили зміни
+    this.productsSubject.next(this.allProducts);
+  }
 
   //перенесли масив з даними з компонента
   private allProducts: IProduct[] = [
