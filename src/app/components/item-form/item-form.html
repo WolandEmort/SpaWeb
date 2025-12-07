@@ -28,6 +28,32 @@
                 <small class="error-message">{{ formUI.errors.brand }}</small>
             }
         </div>
+        <div class="form-group">
+            <label>{{ formUI.labels.imageUrl }}</label>
+            <input
+                    type="text"
+                    formControlName="imageUrl"
+                    [placeholder]="formUI.placeholders.imageUrl"
+            >
+
+            @if (itemForm.get('imageUrl')?.invalid && itemForm.get('imageUrl')?.touched) {
+                <small class="error-message">{{ formUI.errors.imageUrl }}</small>
+            }
+        </div>
+
+        @if (itemForm.value.imageUrl) {
+            <div class="image-preview-container">
+                <p class="preview-label">Попередній перегляд:</p>
+                <div class="preview-wrapper">
+                    <img
+                            [src]="itemForm.value.imageUrl"
+                            alt="Попередній перегляд"
+                            class="preview-image"
+                            onerror="this.src='https://placehold.co/150x180?text=No+Image'"
+                    >
+                </div>
+            </div>
+        }
 
         <div class="form-row">
             <div class="form-group">
@@ -71,4 +97,5 @@
         </button>
 
     </form>
+
 </div>

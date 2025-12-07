@@ -15,7 +15,6 @@ import { IProduct } from '@core/models/product.interface';
 export class ItemFormComponent {
 
   // --- КОНФІГУРАЦІЯ ІНТЕРФЕЙСУ (UI) ---
-  // protected readonly - щоб було доступно в HTML, але не змінювалось
   protected readonly formUI = {
     title: 'Додати новий товар ✨',
     submitBtn: 'Створити товар',
@@ -26,7 +25,8 @@ export class ItemFormComponent {
       brand: 'Бренд',
       price: 'Ціна (UAH)',
       volume: 'Об\'єм',
-      description: 'Опис'
+      description: 'Опис',
+      imageUrl: 'Посилання на фото (URL)' // 🆕 Додано
     },
 
     // Плейсхолдери
@@ -34,7 +34,8 @@ export class ItemFormComponent {
       name: 'Наприклад: Крем для обличчя',
       brand: 'Наприклад: CleanFace',
       volume: '50 мл',
-      description: 'Короткий опис товару...'
+      description: 'Короткий опис товару...',
+      imageUrl: 'https://example.com/image.jpg' // 🆕 Додано
     },
 
     // Повідомлення про помилки
@@ -43,7 +44,8 @@ export class ItemFormComponent {
       brand: 'Бренд обов\'язковий',
       price: 'Вкажіть коректну ціну',
       volume: 'Вкажіть об\'єм',
-      description: 'Опис обов\'язковий'
+      description: 'Опис обов\'язковий',
+      imageUrl: 'Додайте посилання на зображення' // 🆕 Додано
     }
   };
 
@@ -53,7 +55,10 @@ export class ItemFormComponent {
     brand: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
     price: new FormControl(0, [Validators.required, Validators.min(0.01)]),
-    imageUrl: new FormControl('https://placehold.co/150x180', [Validators.required]),
+
+    // 🛠 ЗМІНЕНО: Тепер за замовчуванням порожньо, щоб спрацював валідатор
+    imageUrl: new FormControl('', [Validators.required]),
+
     category: new FormControl('Догляд', [Validators.required]),
     volume: new FormControl('', [Validators.required])
   });
