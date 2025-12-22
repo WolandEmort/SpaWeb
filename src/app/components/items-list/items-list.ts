@@ -36,7 +36,7 @@ export class ItemsListComponent implements OnInit {
   // Завдання 3: Робота з AsyncPipe
   ngOnInit(): void {
 
-    this.products$ = this.dataService.getItems();
+    this.products$ = this.dataService.getAll();
   }
 
   // Завдання 5: Пошук

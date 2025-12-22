@@ -1,95 +1,59 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of} from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { IProduct } from '@core/models/product.interface';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DataService {
+  // ПУНКТ 3: Інжектуємо HttpClient
+  private http = inject(HttpClient);
 
-  public addItem(item: IProduct): void {
-    // 1. Додаємо новий товар у локальний масив
-    this.allProducts.push(item);
+  // Частина URL (базову частину додасть Interceptor)
+  private endpoint = 'items';
 
-    // 2. Оновлюємо потік даних, щоб усі підписники (каталог) побачили зміни
-    this.productsSubject.next(this.allProducts);
-  }
-
-  //перенесли масив з даними з компонента
-  private allProducts: IProduct[] = [
-    {
-      id: 101,
-      name: 'Пінка для вмивання "Pure Cloud"',
-      brand: 'CleanFace',
-      description: 'Легка пінка для глибокого очищення пор, не пересушує шкіру.',
-      price: 380.00,
-      imageUrl: 'https://placehold.co/150x180/7F00FF/FFFFFF?text=FOAM',
-      category: 'Очищення',
-      volume: '150 мл',
-      inStock: true,
-      details: 'Ніжна пінка з гіалуроновою кислотою та екстрактом зеленого чаю. Ідеально підходить для всіх типів шкіри, глибоко очищує та зволожує, не викликаючи відчуття стягнутості.'
-    },
-    {
-      id: 102,
-      name: 'Тональний крем "Perfect Match"',
-      brand: 'GlamLook',
-      description: 'Стійкий тональний засіб із матовим фінішем та захистом SPF 15.',
-      price: 799.00,
-      imageUrl: 'https://placehold.co/150x180/FF69B4/FFFFFF?text=CREAM',
-      category: 'Макіяж',
-      volume: '30 мл',
-      inStock: true,
-      isBestseller: true,
-      details: 'Стійкий тональний засіб із природним матовим фінішем та захистом SPF 15. Забезпечує середнє покриття, вирівнює тон шкіри та приховує недоліки протягом усього дня.'
-    },
-    {
-      id: 103,
-      name: 'Нічна маска з колагеном',
-      brand: 'BeautySleep',
-      description: 'Інтенсивно відновлює шкіру під час сну, підвищуючи її еластичність.',
-      price: 549.99,
-      imageUrl: 'https://placehold.co/150x180/00FFFF/000000?text=MASK',
-      category: 'Маска',
-      volume: '100 мл',
-      inStock: false,
-      details: 'Інтенсивна нічна маска з морським колагеном. Підвищує еластичність шкіри, розгладжує дрібні зморшки та глибоко живить, поки ви спите. Гелева текстура швидко вбирається.'
-    },
-    {
-      id: 104,
-      name: 'Скраб для тіла з кавовими зернами',
-      brand: 'BodyCare',
-      description: 'Натуральний скраб для відлущування та покращення мікроциркуляції.',
-      price: 450.00,
-      imageUrl: 'https://placehold.co/150x180/8B4513/FFFFFF?text=SCRUB',
-      category: 'Догляд для тіла',
-      volume: '250 г',
-      inStock: true,
-      isBestseller: true,
-      details: 'Натуральний скраб на основі меленої кави та тростинного цукру. Ефективно відлущує, стимулює мікроциркуляцію та допомагає у боротьбі з целюлітом. Олії кокоса та ши живлять шкіру.'
-    }
-  ];
-
-  //Завдання 4 лаб 6
-  private productsSubject = new BehaviorSubject<IProduct[]>(this.allProducts);
-
-  constructor() {
-  }
-
-  //Завдання 2 лаб 6(без використання of)
-  getItems(): Observable<IProduct[]> {
-    return this.productsSubject.asObservable();
-  }
-
-  public search(searchTerm: string): void {
-    const filterText = searchTerm.toLowerCase();
-
-    const filteredProducts = this.allProducts.filter(product =>
-      product.name.toLowerCase().includes(filterText)
+  // ПУНКТ 4: GET запит (отримати всі)
+  getAll(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(this.endpoint).pipe(
+        catchError(this.handleError) // ПУНКТ 6
     );
-
-    this.productsSubject.next(filteredProducts);
-
   }
-  getItemById(id: number): Observable<IProduct | undefined> {
-    const product = this.allProducts.find(p => p.id === id);
-    return of(product);
+
+  // ПУНКТ 4: GET запит (пошук по ID)
+  getItemById(id: number): Observable<IProduct> {
+    return this.http.get<IProduct>(`${this.endpoint}/${id}`).pipe(
+        catchError(this.handleError)
+    );
+  }
+
+  // ПУНКТ 4: POST запит (додавання)
+  addItem(item: IProduct): Observable<IProduct> {
+    return this.http.post<IProduct>(this.endpoint, item).pipe(
+        catchError(this.handleError)
+    );
+  }
+
+  // Пошук (серверна фільтрація ?q=...)
+  search(searchTerm: string): Observable<IProduct[]> {
+    const options = searchTerm ?
+        { params: new HttpParams().set('q', searchTerm) } : {};
+
+    return this.http.get<IProduct[]>(this.endpoint, options).pipe(
+        catchError(this.handleError)
+    );
+  }
+
+  // ПУНКТ 6: Обробка помилок
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Сталася невідома помилка!';
+    if (error.error instanceof ErrorEvent) {
+      // Помилка клієнта
+      errorMessage = `Помилка з'єднання: ${error.error.message}`;
+    } else {
+      // Помилка сервера
+      errorMessage = `Сервер повернув код ${error.status}: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
