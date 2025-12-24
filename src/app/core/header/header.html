@@ -11,9 +11,12 @@
             Каталог
         </a>
         <a routerLink="/about" routerLinkActive="active">Про нас</a>
-        <a routerLink="/admin/add-item" routerLinkActive="active" class="admin-link">
-            + Додати
-        </a>
+
+        @if (authService.currentUser$ | async) {
+            <a routerLink="/admin/add-item" routerLinkActive="active" class="admin-link">
+                + Додати
+            </a>
+        }
     </div>
 
     <div class="header-actions">
@@ -23,7 +26,14 @@
                 <span class="badge">{{ cartCount }}</span>
             }
         </button>
-        <button routerLink="/login" class="action-btn login-btn">Увійти</button>
+
+        @if (authService.currentUser$ | async; as user) {
+            <div class="user-menu" style="display: flex; gap: 10px; align-items: center;">
+                <button (click)="authService.logout()" class="action-btn login-btn">Вийти</button>
+            </div>
+        } @else {
+            <a routerLink="/login" class="action-btn login-btn">Увійти</a>
+        }
     </div>
 
 </nav>

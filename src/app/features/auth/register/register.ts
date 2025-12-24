@@ -7,46 +7,54 @@ import { AuthService } from '@core/auth/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink], // Додано RouterLink
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 
 export class Register {
 
-  // Використовуємо inject для підключення сервісів
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Створюємо форму з валідацією
   registerForm = this.fb.group({
-    name: ['', [Validators.required]],
+    // Важливо: AuthService очікує 'username', а не 'name'
+    username: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  // Змінна для відображення помилок з сервера
   errorMessage = '';
 
   onSubmit() {
     if (this.registerForm.valid) {
-      // Відправляємо дані на сервер
-      this.authService.register(this.registerForm.value).subscribe({
+      // Приводимо значення форми до типу any або RegisterRequest
+      const requestData = this.registerForm.value as any;
+
+      this.authService.register(requestData).subscribe({
         next: () => {
-          // Якщо успішно — переходимо в каталог
           console.log('Реєстрація успішна!');
           this.router.navigate(['/items']);
         },
         error: (err) => {
-          // Якщо помилка (наприклад, такий email вже є)
           console.error('Помилка реєстрації:', err);
           this.errorMessage = 'Щось пішло не так. Можливо, цей email вже зайнятий.';
         }
       });
     } else {
-      // Якщо форма невалідна — підсвічуємо червоним всі поля
       this.registerForm.markAllAsTouched();
     }
+  }
+  get username() {
+    return this.registerForm.get('username');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
   }
 }

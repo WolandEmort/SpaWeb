@@ -1,31 +1,80 @@
-<div class="auth-wrapper">
-    <h2>Реєстрація</h2>
-
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-        <div class="form-group">
-            <label>Ім'я</label>
-            <input type="text" formControlName="name" placeholder="Ваше ім'я">
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" formControlName="email" placeholder="email@example.com">
-        </div>
-
-        <div class="form-group">
-            <label>Пароль</label>
-            <input type="password" formControlName="password" placeholder="Мінімум 6 символів">
-        </div>
+<div class="register-container">
+    <div class="register-card">
+        <h2>Реєстрація</h2>
 
         @if (errorMessage) {
-            <p class="error-msg">{{ errorMessage }}</p>
+            <div class="error-message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>{{ errorMessage }}</span>
+            </div>
         }
 
-        <button type="submit" [disabled]="registerForm.invalid">Зареєструватися</button>
-    </form>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <p class="switch-auth">
-        Вже є акаунт? <a routerLink="/login">Увійти</a>
-    </p>
+            <div class="form-group">
+                <label for="username">Ім'я користувача</label>
+                <input
+                        type="text"
+                        id="username"
+                        class="form-control"
+                        [class.is-invalid]="username?.invalid && username?.touched"
+                        formControlName="username"
+                        placeholder="Ваше ім'я"
+                >
+                @if (username?.errors?.['required'] && username?.touched) {
+                    <div class="invalid-feedback">
+                        Це поле обов'язкове
+                    </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                        type="email"
+                        id="email"
+                        class="form-control"
+                        [class.is-invalid]="email?.invalid && email?.touched"
+                        formControlName="email"
+                        placeholder="email@example.com"
+                >
+                @if (email?.errors?.['required'] && email?.touched) {
+                    <div class="invalid-feedback">Введіть email</div>
+                }
+                @if (email?.errors?.['email'] && email?.touched) {
+                    <div class="invalid-feedback">Некоректний формат email</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        [class.is-invalid]="password?.invalid && password?.touched"
+                        formControlName="password"
+                        placeholder="Мінімум 6 символів"
+                >
+                @if (password?.errors?.['required'] && password?.touched) {
+                    <div class="invalid-feedback">Введіть пароль</div>
+                }
+                @if (password?.errors?.['minlength'] && password?.touched) {
+                    <div class="invalid-feedback">Мінімум 6 символів</div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+                Зареєструватися
+            </button>
+        </form>
+
+        <div class="login-link">
+            Вже є акаунт? <a routerLink="/login">Увійти</a>
+        </div>
+    </div>
 </div>

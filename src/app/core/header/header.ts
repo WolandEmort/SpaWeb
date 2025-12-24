@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { environment } from 'environments/environment';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import {CommonModule} from "@angular/common";
+import { CommonModule } from "@angular/common";
+import { AuthService } from '@core/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import {CommonModule} from "@angular/common";
   styleUrls: ['./header.css']
 })
 export class Header {
+  public authService = inject(AuthService);
   appName: string = environment.appName;
   cartCount: number = 0;
 }
