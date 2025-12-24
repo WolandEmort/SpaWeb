@@ -1,0 +1,31 @@
+<div class="auth-wrapper">
+    <h2>Реєстрація</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Ім'я</label>
+            <input type="text" formControlName="name" placeholder="Ваше ім'я">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="email@example.com">
+        </div>
+
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" formControlName="password" placeholder="Мінімум 6 символів">
+        </div>
+
+        @if (errorMessage) {
+            <p class="error-msg">{{ errorMessage }}</p>
+        }
+
+        <button type="submit" [disabled]="registerForm.invalid">Зареєструватися</button>
+    </form>
+
+    <p class="switch-auth">
+        Вже є акаунт? <a routerLink="/login">Увійти</a>
+    </p>
+</div>

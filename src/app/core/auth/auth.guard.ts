@@ -1,16 +1,28 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+/**
+ * Guard для захисту маршрутів від неавторизованих користувачів
+ * Використовується для сторінок, які потребують авторизації (додавання/редагування)
+ */
+export const authGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    if (authService.isLoggedIn()) {
+    if (authService.isAuthenticated()) {
+        // Користувач авторизований - дозволяємо доступ
         return true;
     }
 
-    // Якщо не авторизований — відправляємо на сторінку логіну
-    router.navigate(['/login']);
+    // Користувач не авторизований - перенаправляємо на сторінку логіну
+    // Зберігаємо URL для повернення після успішного входу
+    router.navigate(['/login'], {
+        queryParams: { returnUrl: state.url }
+    });
+
     return false;
 };
