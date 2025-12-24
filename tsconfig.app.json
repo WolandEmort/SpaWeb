@@ -17,7 +17,9 @@
 
       "@core/*": ["app/core/*"],
 
-      "@models/*": ["app/core/models/*"]
+      "@models/*": ["app/core/models/*"],
+
+      "@features/*": ["features/*"]
     }
     // --- КІНЕЦЬ ВИПРАВЛЕНЬ ---
   },
