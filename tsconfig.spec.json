@@ -6,9 +6,19 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine"
-    ]
+    ],
+
+    "baseUrl": "./src",
+
+    "paths": {
+      "environments/*": ["environments/*"],
+      "@core/*": ["app/core/*"],
+      "@models/*": ["app/core/models/*"],
+      "@features/*": ["features/*"]
+    }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
   ]
 }
